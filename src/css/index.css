@@ -128,7 +128,7 @@ h2{
     margin-bottom: 2.25rem;
 }
 .intro-item{
-    width: 350px;
+    width: 380px;
     text-align: center;
     transition: all .3s;
     display: flex;
@@ -141,13 +141,13 @@ h2{
     bottom: 100%;
     left: 0;
     border-top: 40px solid transparent;
-    border-left: 175px solid #fff;
-    border-right:  175px solid #fff;
+    border-left: 190px solid #fff;
+    border-right:  190px solid #fff;
     transition: all .3s;
 }
 .intro-item:hover .intro-text:before{
-    border-left:  175px solid #F2D5C4;
-    border-right:  175px solid #F2D5C4;
+    border-left:  190px solid #F2D5C4;
+    border-right:  190px solid #F2D5C4;
 }
 .intro-item:hover{
     transform: translateY(-10px);

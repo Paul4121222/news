@@ -15,13 +15,13 @@ export const newsList=(id)=>async (dispatch)=>{
         params:{
             q:id,
             country:'tw',
-            token:'b89f929d24f4fe3d0585a6bfb8cc1c74'
+            token:'c4274550357643439e8b393e91b57cb4'
         }
     });
     dispatch({type:'SPORTS',payload:response.data.articles});
 }
 
-//b89f929d24f4fe3d0585a6bfb8cc1c74
+//正確的id:b89f929d24f4fe3d0585a6bfb8cc1c74
 
 //new:c4274550357643439e8b393e91b57cb4
 /*export const newsList=(id)=>async (dispatch)=>{
