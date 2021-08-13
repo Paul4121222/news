@@ -288,13 +288,9 @@ h2{
 .modal{
     position:absolute;
     z-index: 1000;
-    top:20px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width:87%;
-    margin: 0 auto;
-    height: 20%;
+    top: 20px;
+    width: calc(100% - 3rem);
+    margin: 0 1.5rem;
     background: #fff;
     border-radius: 5px;
     padding: 1.625rem;
@@ -346,6 +342,10 @@ h2{
 }
 
 @media screen and (max-width:420px){
+    .intro-item:hover{
+        background: #fff;
+    }
+
     .theme-header-item{
         height: 9.375rem;
     }
