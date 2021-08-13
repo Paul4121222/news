@@ -11,12 +11,26 @@ export const SignOut=()=>{
 
 
 export const newsList=(id)=>async (dispatch)=>{
-    const response=await axios.get('/top-headlines',{
+    const response=await axios.get('/search',{
         params:{
-            category:id,
+            q:id,
             country:'tw',
-            apiKey:'c4274550357643439e8b393e91b57cb4'
+            token:'b89f929d24f4fe3d0585a6bfb8cc1c74'
         }
     });
     dispatch({type:'SPORTS',payload:response.data.articles});
 }
+
+//b89f929d24f4fe3d0585a6bfb8cc1c74
+
+//new:c4274550357643439e8b393e91b57cb4
+/*export const newsList=(id)=>async (dispatch)=>{
+    const response=await axios.get('/top-headlines',{
+        params:{
+            category:id,
+            country:'tw',
+            apiKey:'b89f929d24f4fe3d0585a6bfb8cc1c74'
+        }
+    });
+    dispatch({type:'SPORTS',payload:response.data.articles});
+}*/

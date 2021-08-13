@@ -6,7 +6,7 @@ class Theme extends React.Component{
         let firstItem=($('.float-wrap :nth-child(1) .float-text').offset().top)-$(window).height();
         let secItem=($('.float-wrap :nth-child(2) .float-text').offset().top)-$(window).height();
         let thirdItem=($('.float-wrap :nth-child(3) .float-text').offset().top)-$(window).height();
-        let fourItem=($('.float-wrap :nth-child(4) .float-text').offset().top)-$(window).height();
+       
         $(window).on('scroll',()=>{
            
             if($(window).scrollTop()>firstItem){
@@ -28,12 +28,7 @@ class Theme extends React.Component{
             if($(window).scrollTop()<thirdItem){
                 $('.float-wrap :nth-child(3) .float-text').removeClass('normal');
             }
-            if($(window).scrollTop()>fourItem){
-                $('.float-wrap :nth-child(4) .float-text').addClass('normal');
-            }
-            if($(window).scrollTop()<fourItem){
-                $('.float-wrap :nth-child(4) .float-text').removeClass('normal');
-            }
+           
         })
     }
     
@@ -41,7 +36,7 @@ class Theme extends React.Component{
         return (
             <div className="theme-header ">
                 <div className="theme-header-item">
-                    <img src={this.props.theme[0].urlToImage} alt=''/>
+                    <img src={this.props.theme[0].image} alt=''/>
                     <div className="header-item-text">
                         <a href={this.props.theme[0].url} target="_blank" rel="noreferrer noopener">
                             {this.props.theme[0].title}
@@ -49,7 +44,7 @@ class Theme extends React.Component{
                     </div>
                 </div>
                 <div className="theme-header-item">
-                    <img src={this.props.theme[1].urlToImage} alt=''/>
+                    <img src={this.props.theme[1].image} alt=''/>
                     <div className="header-item-text">
                         <a href={this.props.theme[1].url} target="_blank" rel="noreferrer noopener">
                             {this.props.theme[1].title}
@@ -57,7 +52,7 @@ class Theme extends React.Component{
                     </div>
                 </div>
                 <div className="theme-header-item">
-                    <img src={this.props.theme[2].urlToImage} alt=''/>
+                    <img src={this.props.theme[2].image} alt=''/>
                     <div className="header-item-text">
                         <a href={this.props.theme[2].url} target="_blank" rel="noreferrer noopener">
                             {this.props.theme[2].title}
@@ -65,7 +60,7 @@ class Theme extends React.Component{
                     </div>
                 </div>
                 <div className="theme-header-item">
-                    <img src={this.props.theme[3].urlToImage} alt=''/>
+                    <img src={this.props.theme[3].image} alt=''/>
                     <div className="header-item-text">
                         <a href={this.props.theme[3].url} target="_blank" rel="noreferrer noopener">
                             {this.props.theme[3].title}
@@ -85,15 +80,15 @@ class Theme extends React.Component{
                 <p className="intro-title">頭條新聞</p>
                 <div className="intro-wrap">
                     <div className="intro-item">
-                        <img width="100%" src={this.props.theme[4].urlToImage} alt='新聞圖片' />
+                        <img width="100%" src={this.props.theme[4].image} alt='新聞圖片' />
                         <div className="intro-text">
                             <h2>{this.props.theme[4].title}</h2>
                             <p>{this.props.theme[4].description}</p>
                         </div>
-                        <a className="intro-href btn" href={this.props.theme[4].url} target="_blank" rel="noreferrer noopener">more</a>
+                        <a className="intro-href btn" href={this.props.theme[4].image} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                     <div className="intro-item">
-                        <img  width="100%" src={this.props.theme[5].urlToImage} alt='新聞圖片' />
+                        <img  width="100%" src={this.props.theme[5].image} alt='新聞圖片' />
                         <div className="intro-text">
                             <h2>{this.props.theme[5].title}</h2>
                             <p>{this.props.theme[5].description}</p>
@@ -101,7 +96,7 @@ class Theme extends React.Component{
                         <a className="intro-href btn" href={this.props.theme[5].url} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                     <div className="intro-item">
-                        <img  width="100%" src={this.props.theme[6].urlToImage} alt='新聞圖片' />
+                        <img  width="100%" src={this.props.theme[6].image} alt='新聞圖片' />
                         <div className="intro-text">
                             <h2>{this.props.theme[6].title}</h2>
                             <p>{this.props.theme[6].description}</p>
@@ -121,7 +116,7 @@ class Theme extends React.Component{
 
                     <div className="float-item">
                         <div className="float-img">
-                            <img src={this.props.theme[7].urlToImage} alt='新聞圖片' />
+                            <img src={this.props.theme[7].image} alt='新聞圖片' />
                         </div>
                         <div className="float-text">
                             <h2>{this.props.theme[7].title}</h2>
@@ -137,13 +132,13 @@ class Theme extends React.Component{
                             <a className="btn float-btn" href={this.props.theme[8].url} target="_blank" rel="noreferrer noopener">more</a>
                         </div>
                         <div className="float-img">
-                            <img src={this.props.theme[8].urlToImage} alt='新聞圖片' />
+                            <img src={this.props.theme[8].image} alt='新聞圖片' />
                         </div>
                     </div>
 
                     <div className="float-item">
                         <div className="float-img">
-                            <img src={this.props.theme[9].urlToImage} alt='新聞圖片' />
+                            <img src={this.props.theme[9].image} alt='新聞圖片' />
                         </div>
                         <div className="float-text">
                             <h2>{this.props.theme[9].title}</h2>
@@ -152,16 +147,7 @@ class Theme extends React.Component{
                         </div>
                     </div>
 
-                    <div className="float-item">
-                        <div className="float-text">
-                            <h2>{this.props.theme[10].title}</h2>
-                            <p>{this.props.theme[10].description}</p>
-                            <a className="btn float-btn" href={this.props.theme[10].url} target="_blank" rel="noreferrer noopener">more</a>
-                        </div>
-                        <div className="float-img">
-                            <img src={this.props.theme[10].urlToImage} alt='新聞圖片' />
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
