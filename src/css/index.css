@@ -8,6 +8,10 @@ body{
     text-decoration: none;
     overflow-x: hidden;
 }
+html,body{
+    width: 100%;
+    overflow-x: hidden;
+}
 a{
     text-decoration: none;
 }
@@ -15,6 +19,7 @@ a{
     box-sizing: inherit;
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 h2{
     margin: 0;
@@ -200,6 +205,9 @@ h2{
     align-items: center;
     flex-wrap: wrap;
 }
+.float-item:last-child{
+    margin-bottom: 0;
+}
 .float-img{
     flex-shrink: 0;
     flex-basis: 55%;
@@ -221,6 +229,7 @@ h2{
     display: flex;
     flex-direction: column;
     transform: translateX(100%);
+    transition:all .3s linear;
 }
 
 .float-text h2{
@@ -235,6 +244,7 @@ h2{
 }
 .float-item:nth-child(even) > .float-text{
     transform: translateX(-100%);
+    transition:all .3s linear;
     background-color: rgba(242, 203, 7,0.7);
 }
 .float-item > :first-child {
@@ -305,6 +315,158 @@ h2{
     overflow: hidden;
 }
 
+.menu-open span:first-child{
+    transform: translateY(8px) rotate(45deg);
+}
+.menu-open span:nth-child(2){
+    opacity: 0;
+}
+.menu-open span:last-child{
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+}
+.inputForm{
+    border:1px solid #000;
+    border-radius: 0.25rem;
+    margin-right: 2.5rem;
+}
+.inputForm input,button{
+    border:none;
+    background: transparent;
+    padding: 5px 10px;
+}
+
+.inputForm input:focus{
+    outline: none;
+}
+
+
+.footer{
+    background-color: #000;
+    color:#fff;
+}
+.footer .container{
+    padding: 2.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 3fr;
+    grid-template-rows: 1fr;
+}
+
+.footer h2{
+    padding: 1rem 0;
+    cursor: pointer;
+}
+.footer h2:hover{
+    color:#F2CB05;
+}
+.footer li:hover{
+    color:#F2CB05;
+}
+.footer li{
+    font-size: 14px;
+    cursor: pointer;
+    color:#999;
+}
+.footer ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start
+}
+.social{
+    text-align: right;
+    padding-top: 1rem;
+}
+.social i{
+    font-size: 2rem;
+    cursor: pointer;
+}
+.social i:hover{
+    color: #F2CB05;
+}
+.social i:not(:last-child){
+    margin-right: 2rem;
+}
+.copyright{
+    background: #fff;
+    color:#999;
+    text-align: center;
+}
+
+.rotate{
+    max-width: 960px;
+    padding: 30px 0;
+}
+.box{
+    outline: 1px solid #000;
+    text-align: center;
+    width: 141.5px;
+    height: 141.5px;
+    position: relative;
+    transform: rotate(45deg) ;
+    overflow: hidden;
+}
+.row2 {
+    transform: translateX(-165px);
+}
+/*.box::before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    outline: 1px solid #F2CB05;
+    left: 0;
+    top: 0;
+    transform: rotate(45deg);
+}*/
+.box img{
+    position: absolute;
+    width: 200px;
+    height:200px;
+    left:0;
+    top:0;
+    object-fit: cover;
+    transform: rotate(-45deg) translateY(-43px);
+}
+
+
+.row{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+.slider-container{
+    display: inline-flex;
+    transition: transform .3s ease-out;
+}
+.slide{
+    width: 400px;
+    margin: 0 20px;
+    flex-shrink: 0;
+    background-color: #888;
+    border-radius: 5px;
+    user-select: none;
+}
+.slide img{
+    width: 100%;
+    max-height: 60%;
+    border-radius: 5px 5px 0 0;
+}
+.grabbing{
+    cursor: grabbing;
+}
+.slider-text{
+    user-select: none;
+}
+
+
 @media screen and (max-width:1024px){
     .float-text{
         transform: translateX(0);
@@ -339,9 +501,25 @@ h2{
         font-size: 0.5rem;
         line-height: 1.3;
     }
+    .footer .container{
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .social{
+        text-align: center;
+    }
+
+    .slide{
+        width: 350px;
+        margin: 0 10px;
+    }
 }
 
 @media screen and (max-width:420px){
+    .slide{
+        width: 300px;
+        margin: 0 10px;
+    }
     .intro-item:hover{
         background: #fff;
     }
@@ -373,5 +551,9 @@ h2{
     }
     .menu{
         display: block;
+    }
+    .inputForm{
+        margin-right: 0;
+
     }
 }

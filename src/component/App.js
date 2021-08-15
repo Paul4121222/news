@@ -5,6 +5,7 @@ import Header from './Header';
 import New from './New';
 import Sports from './Sports';
 import Health from './Health';
+import Search from './Search';
 class App extends React.Component{
     render(){
         return (
@@ -15,7 +16,7 @@ class App extends React.Component{
                     <Route path='/' exact component={New} />
                     <Route path='/sports' exact component={Sports} />
                     <Route path='/health' exact component={Health} />
-            
+                    <Route path='/search' exact component={Search} />
                 </Router>
             </React.Fragment>
         )

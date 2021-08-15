@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {newsList} from '../action';
 import Theme from './Theme';
-
+import Footer from './Footer';
 class Sports extends React.Component{
     componentDidMount(){
         this.props.newsList('health');
@@ -13,12 +13,13 @@ class Sports extends React.Component{
         }
 
         return (
-            <div className="container">
+            <React.Fragment>
                 <Theme 
                     theme={this.props.newTheme} 
                     title="health"
                 />
-            </div>
+                <Footer />
+            </React.Fragment>
         )
     }
 }

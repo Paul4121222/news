@@ -2,13 +2,23 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import GoogleAuth from './GoogleAuth';
 import Module from './Module';
-class Header extends React.Component{
-    state={open:false}
+import ReduxForm from './ReduxForm';
 
+class Header extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={open:false}
+        this.menu=React.createRef();
+    }
+    
     showModule(){
         if(this.state.open){
-            return <Module  open={()=>{this.setState({open:false})}} renderNav={this.renderNav}/>
+            return <Module  open={this.clickNav} renderNav={this.renderNav}/>
         }
+    }
+
+    clickNav=()=>{
+        this.setState({open:false});
     }
     renderNav(){
         return (
@@ -27,8 +37,18 @@ class Header extends React.Component{
                 <nav className='nav'>
                     {this.renderNav()}
                 </nav>
-                <GoogleAuth />
-                <div className="menu" onClick={()=>{this.setState({open:!this.state.open})}}>
+
+                <div className="nav-right">
+                    <ReduxForm />
+                    <GoogleAuth />
+                </div>
+                
+
+
+
+                <div ref={this.menu} className="menu" onClick={()=>{
+                    this.menu.current.classList.contains('menu-open')?this.menu.current.classList.remove('menu-open'):this.menu.current.classList.add('menu-open');
+                    this.setState({open:!this.state.open})}}>
                     <span></span>
                     <span></span>
                     <span></span>
