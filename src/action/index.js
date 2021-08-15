@@ -39,7 +39,7 @@ export const newsList=(id)=>async (dispatch)=>{
 export const searchKey=(keyWord)=>async (dispatch)=>{
     const response=await axios.get('/search',{
         params:{
-            token:'b89f929d24f4fe3d0585a6bfb8cc1c74',
+            token:'b89f929d24f4fe3d0585a6bfb8cc1c745',
             country:'tw',
             q:keyWord
         }
@@ -52,7 +52,7 @@ export const mainPage=()=>async (dispatch)=>{
     const response=await axios.get('/top-headlines',{
         params:{
             country:'tw',
-            token:'b89f929d24f4fe3d0585a6bfb8cc1c74'
+            token:'b89f929d24f4fe3d0585a6bfb8cc1c745'
         }
     });
 
