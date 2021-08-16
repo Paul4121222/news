@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import Theme from './Theme';
 import Footer from './Footer';
 class Search extends React.Component{
-
     render(){
         if(this.props.newTheme.length===0){
             return <div>loading</div>
@@ -13,7 +12,7 @@ class Search extends React.Component{
             <React.Fragment>
                 <Theme 
                     theme={this.props.newTheme} 
-                    title={this.props.form.inpurForm.values?this.props.form.inpurForm.values.keyWord:""}
+                    title={this.props.word}
                 />
                 <Footer />
             </React.Fragment>
@@ -24,7 +23,8 @@ class Search extends React.Component{
 const mapStateToProps=(state)=>{
     return {
         newTheme:state.newTheme,
-        form:state.form
+        form:state.form,
+        word:state.searchWord
     }
 }
 export default connect(mapStateToProps)(Search);

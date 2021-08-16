@@ -1,4 +1,4 @@
-import  React ,{useRef}from 'react';
+import  React ,{useRef,useEffect}from 'react';
 
 const Slider=(props)=>{
     const list=props.list;
@@ -12,7 +12,11 @@ const Slider=(props)=>{
     let totalWidth;
     let count;
 
-    let lastCount;
+    useEffect(()=>{
+        totalWidth=window.innerWidth;
+        count=Math.floor((slider.current.clientWidth-totalWidth)/slide.current.clientWidth);
+    });
+    
     const touchStart=(e)=>{
         dragging=true;
         startPos=getCurrentPos(e);
@@ -30,12 +34,9 @@ const Slider=(props)=>{
         dragging=false;
         slider.current.classList.remove('grabbing');
         
-        totalWidth=window.innerWidth;
-        count=Math.floor((slider.current.clientWidth-totalWidth)/slide.current.clientWidth);
 
         //限制
         if(count>=5)count=4;
-        console.log(count);
         //往右拖動量>100,往右一格
         if(currentTranslate-preTranslate<-50 && currentPos<count){
             currentPos++;
@@ -45,6 +46,7 @@ const Slider=(props)=>{
             currentPos--;
         }
         setting();
+        console.log(count,currentPos);
     }
 
     
@@ -73,9 +75,31 @@ const Slider=(props)=>{
             }
     }
 
-
+    const clickBtn=(num)=>{
+        
+        return ()=>{
+            if(num>0){
+                if(currentPos<count)
+                    currentPos++;
+                setting();
+            }
+            else{
+                if(currentPos>0)
+                    currentPos--;
+                setting();
+            }
+        }
+    }
     return (
             <div>
+                <div className="slider-header container">
+                    <h2>精選消息</h2>
+                    <div className="slider-btn">
+                        <button onClick={clickBtn(-1)}>&#60;</button>
+                        <button onClick={clickBtn(1)}>&#62;</button>
+                    </div>
+                </div>
+                
                 <div className="slider-container" ref={slider} onMouseDown={touchStart} onMouseMove={touchMove} 
                     onMouseLeave={touchEnd} onMouseUp={touchEnd}  onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
                     <div className="slide" >

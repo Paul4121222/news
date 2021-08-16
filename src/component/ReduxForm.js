@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field,reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
-import {searchKey} from '../action';
+import {searchKey,word} from '../action';
 
 class ReduxForm extends React.Component{
 
@@ -12,8 +12,8 @@ class ReduxForm extends React.Component{
     }
 
     onSubmit=(formValue)=>{
-        console.log(3);
         this.props.searchKey(formValue.keyWord);
+        this.props.word(formValue.keyWord);
     }
     render(){
         return (
@@ -29,4 +29,4 @@ const formInput= reduxForm({
     form:"inpurForm"
 })(ReduxForm);
 
-export default connect(null,{searchKey})(formInput);
+export default connect(null,{searchKey,word})(formInput);
