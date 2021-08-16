@@ -5,7 +5,7 @@ const FlipCard = (props)=>{
         <div className="container padding-x  flip-card">
             <h2></h2>
             <div className="card-row1">
-                <div>
+               
                     <div className="clip-card-container">
                         <div className="clip-card-space">
                                 <div className="card-front ">
@@ -16,7 +16,7 @@ const FlipCard = (props)=>{
                                 </div>
                         </div>
                     </div>
-                </div>
+               
 
                 <div className="clip-card-container">
                     
