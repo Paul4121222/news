@@ -107,6 +107,7 @@ const Slider=(props)=>{
                         <div className="slider-text">
                             {list[0].title}
                         </div>
+                        <a className="slide-btn btn" href={list[0].url} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                     <div className="slide" onMouseDown={touchStart} onMouseMove={touchMove} 
                     onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
@@ -114,6 +115,7 @@ const Slider=(props)=>{
                         <div className="slider-text">
                             {list[1].title}
                         </div>
+                        <a className="slide-btn btn" href={list[1].url} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                     <div className="slide" onMouseDown={touchStart} onMouseMove={touchMove} 
                     onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
@@ -121,6 +123,7 @@ const Slider=(props)=>{
                         <div className="slider-text">
                             {list[2].title}
                         </div>
+                        <a className="slide-btn btn" href={list[2].url} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                     <div className="slide" onMouseDown={touchStart} onMouseMove={touchMove} 
                     onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
@@ -128,6 +131,7 @@ const Slider=(props)=>{
                         <div className="slider-text">
                             {list[3].title}
                         </div>
+                        <a className="slide-btn btn" href={list[3].url} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                     <div className="slide" ref={slide} onMouseDown={touchStart} onMouseMove={touchMove} 
                     onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
@@ -135,6 +139,7 @@ const Slider=(props)=>{
                         <div className="slider-text">
                             {list[4].title}
                         </div>
+                        <a className="slide-btn btn" href={list[4].url} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                 </div>
             </div>

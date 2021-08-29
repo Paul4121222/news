@@ -452,6 +452,13 @@ h2{
     transition: transform .3s ease-out;
     padding: 10px 24px 80px;
 }
+.slide-btn{
+    background-color: #730202;
+    color: #fff;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
 .slide{
     width: 400px;
     margin: 0 20px;
@@ -459,6 +466,7 @@ h2{
     border-radius: 5px;
     user-select: none;
     box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+    position: relative;
 }
 .slide img{
     width: 100%;

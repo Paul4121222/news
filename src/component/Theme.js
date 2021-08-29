@@ -85,7 +85,7 @@ class Theme extends React.Component{
                             <h2>{this.props.theme[4].title}</h2>
                             <p>{this.props.theme[4].description}</p>
                         </div>
-                        <a className="intro-href btn" href={this.props.theme[4].image} target="_blank" rel="noreferrer noopener">more</a>
+                        <a className="intro-href btn" href={this.props.theme[4].url} target="_blank" rel="noreferrer noopener">more</a>
                     </div>
                     <div className="intro-item">
                         <img  width="100%" src={this.props.theme[5].image} alt='新聞圖片' />

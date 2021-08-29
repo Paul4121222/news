@@ -1,6 +1,5 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
-import GoogleAuth from './GoogleAuth';
 import Module from './Module';
 import ReduxForm from './ReduxForm';
 
@@ -40,7 +39,6 @@ class Header extends React.Component{
 
                 <div className="nav-right">
                     <ReduxForm />
-                    <GoogleAuth />
                 </div>
                 
 

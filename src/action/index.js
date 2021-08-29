@@ -1,14 +1,7 @@
 import axios from '../axios';
 import history from '../history';
 
-export const SignIn=(id)=>{
-    return {type:"SIGN_IN",payload:id};
-}
 
-
-export const SignOut=()=>{
-    return {type:"SIGN_OUT"};
-}
 
 
 export const newsList=(id)=>async (dispatch)=>{
