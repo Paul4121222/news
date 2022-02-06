@@ -547,6 +547,7 @@ h2{
 }
 
 .clip-card-space{
+    display: block;
     transform-style: preserve-3d;
     width: 100%;
     height: 100%;
