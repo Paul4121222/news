@@ -5,9 +5,9 @@ class Footer extends React.Component{
             <div className="footer">
                 <div className="container">
 
-                    <a href="#">
-                        <img src='https://styles.redditmedia.com/t5_3v7z2o/styles/profileIcon_snoo4f615381-fd7d-439a-adcd-25d2e5f615b1-headshot.png'></img>
-                    </a>
+                    
+                        <img  className="footer-img" src='https://images.vexels.com/media/users/3/142812/isolated/preview/992801ae3182fa95353e941cfcac9293-shield-logo-emblem-design.png' alt="圖片"></img>
+                    
 
                     <ul className='col-1'>
                         <h2>關於我們</h2>

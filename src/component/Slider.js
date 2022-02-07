@@ -91,7 +91,7 @@ const Slider=(props)=>{
         }
     }
     return (
-            <div>
+            <div className='padding-y'>
                 <div className="slider-header container">
                     <h2>精選消息</h2>
                     <div className="slider-btn">

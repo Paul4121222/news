@@ -30,8 +30,8 @@ class Header extends React.Component{
     }
     render(){
         return (
-            <div className="container header-nav padding-all">
-                <Link to='/'>News</Link>
+            <div className="header-nav padding-all">
+                <Link to='/' className='nav-title'>新聞網站</Link>
                 
                 <nav className='nav'>
                     {this.renderNav()}

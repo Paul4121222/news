@@ -12,11 +12,13 @@ class App extends React.Component{
             <React.Fragment>
                 <Router history={history}>
                     
-                    <Header />
-                    <Route path='/' exact component={New} />
-                    <Route path='/sports' exact component={Sports} />
-                    <Route path='/health' exact component={Health} />
-                    <Route path='/search' exact component={Search} />
+                        <Header />
+                        <Switch>
+                            <Route path='/' exact component={New} />
+                            <Route path='/sports' exact component={Sports} />
+                            <Route path='/health' exact component={Health} />
+                            <Route path='/search' exact component={Search} />
+                        </Switch>
                 </Router>
             </React.Fragment>
         )
