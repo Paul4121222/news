@@ -494,7 +494,7 @@ h2{
     flex-direction: column;
 }
 .slide:not(:last-child){
-    margin-right: 40px;
+    margin-right: 2rem;
 }
 .slide img{
     width: 100%;
@@ -679,12 +679,23 @@ h2{
     .card-front,.card-back{
         position: relative;
     }
+    .slide{
+        width: 350px;
+    }
     .card-front{
         height: 45%;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .card-front img{
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
     .card-back{
         transform: rotateY(0);
         height: 55%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
     .clip-card-container:nth-child(even) .clip-card-space{
         transform: rotateY(0);
@@ -715,10 +726,6 @@ h2{
         text-align: center;
     }
 
-    .slide{
-        width: 350px;
-        margin: 0 10px;
-    }
 
     .flip-card{
         padding: 4rem 0 2rem;
@@ -729,7 +736,7 @@ h2{
         margin: 0 auto 2rem;
     }
     .slide:not(:last-child){
-        margin-right: 20px;
+        margin-right: 2rem;
     }
 }
 
@@ -746,7 +753,6 @@ h2{
     }
     .slide{
         width: 300px;
-        margin: 0 10px;
     }
     .intro-item:hover{
         background: #fff;
@@ -790,7 +796,5 @@ h2{
     .flip-card{
         padding: 1rem 0;
     }
-    .slide:not(:last-child){
-        margin-right: 10px;
-    }
+   
 }

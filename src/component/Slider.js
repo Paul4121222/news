@@ -34,7 +34,6 @@ const Slider=(props)=>{
         dragging=false;
         slider.current.classList.remove('grabbing');
         
-
         //限制
         if(count>=5)count=4;
         //往右拖動量>100,往右一格
@@ -46,13 +45,11 @@ const Slider=(props)=>{
             currentPos--;
         }
         setting();
-        console.log(count,currentPos);
     }
 
     
 
     const setSliderPosition=(p=0)=>{
-        
         slider.current.style.transform=`translateX(${currentTranslate+p}px)`;
     }
 
@@ -61,15 +58,15 @@ const Slider=(props)=>{
     }
     
     const setting=()=>{
-            if(slider.current.clientWidth-totalWidth-slide.current.clientWidth*currentPos<slide.current.clientWidth){
-                currentTranslate=currentPos*(-slide.current.clientWidth);
+            if(slider.current.clientWidth-totalWidth-(slide.current.clientWidth-32)*currentPos<slide.current.clientWidth){
+                currentTranslate=currentPos*(-slide.current.clientWidth-32);
                 preTranslate=currentTranslate;
                 
-                setSliderPosition(-(slider.current.clientWidth-totalWidth-slide.current.clientWidth*currentPos))
+                setSliderPosition(-(slider.current.clientWidth-totalWidth-(slide.current.clientWidth+32)*currentPos))
             }
 
             else {
-                currentTranslate=currentPos*(-slide.current.clientWidth);
+                currentTranslate=currentPos*(-slide.current.clientWidth-32);
                 preTranslate=currentTranslate;
                 setSliderPosition();
             }
