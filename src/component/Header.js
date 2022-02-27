@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import Module from './Module';
 import ReduxForm from './ReduxForm';
+import {motion} from 'framer-motion';
 
 class Header extends React.Component{
     constructor(props){
@@ -31,7 +32,11 @@ class Header extends React.Component{
     render(){
         return (
             <div className="header-nav padding-all">
-                <Link to='/' className='nav-title'>新聞網站</Link>
+                <Link to='/' className='nav-title'>
+                    <motion.p  animate={{y:0}} initial={{y:-250}} transition={{delay:1.5,duration:1,type:"spring",stiffness:120}}>
+                        新聞網站
+                    </motion.p>
+                </Link>
                 
                 <nav className='nav'>
                     {this.renderNav()}

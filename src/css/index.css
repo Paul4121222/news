@@ -631,6 +631,27 @@ h2{
 }
 
 
+.overlap{
+    width: 100%;
+    height: 100vh;
+    background-color: #F2B544;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 10000;
+}
+
+/*元素進入前*/
+.fade-exit{
+    transform: translateY(0);
+}
+.fade-exit-active{
+    transform: translateY(-100%);
+    transition: transform 1000ms;
+}
+.fade-exit-done{
+    transform: translateY(-100%);
+}
 
 
 

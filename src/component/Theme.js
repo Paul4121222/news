@@ -1,35 +1,34 @@
 import React from 'react';
-import $ from 'jquery';
+import {motion} from 'framer-motion';
 class Theme extends React.Component{
+    constructor(props){
+        super(props);
+        this.floatItems=React.createRef();
+        this.buttonHover={
+            hover:{
+                scale:1.1,
+                transition:{
+                    yoyo:Infinity,
+                    duration:0.3
+                }
+            }
+        }
+    }   
     componentDidMount(){
-        console.log($(window).height())
-        let firstItem=($('.float-wrap :nth-child(1) .float-text').offset().top)-$(window).height();
-        let secItem=($('.float-wrap :nth-child(2) .float-text').offset().top)-$(window).height();
-        let thirdItem=($('.float-wrap :nth-child(3) .float-text').offset().top)-$(window).height();
-       
-        $(window).on('scroll',()=>{
+       window.addEventListener('scroll',()=>{
+           const items=this.floatItems.current;
+           if(items){
+                items.childNodes.forEach(item=>{
+                    if(item.getBoundingClientRect().top<window.innerHeight-150){
+                        item.querySelector('.float-text').classList.add('normal');
+                    }
+                    else{
+                        item.querySelector('.float-text').classList.remove('normal');
+                    }
+            })
+           }
            
-            if($(window).scrollTop()>firstItem){
-                $('.float-wrap :nth-child(1) .float-text').addClass('normal');
-            }
-            if($(window).scrollTop()<firstItem){
-                $('.float-wrap :nth-child(1) .float-text').removeClass('normal');
-            }
-
-            if($(window).scrollTop()>secItem){
-                $('.float-wrap :nth-child(2) .float-text').addClass('normal');
-            }
-            if($(window).scrollTop()<secItem){
-                $('.float-wrap :nth-child(2) .float-text').removeClass('normal');
-            }
-            if($(window).scrollTop()>thirdItem){
-                $('.float-wrap :nth-child(3) .float-text').addClass('normal');
-            }
-            if($(window).scrollTop()<thirdItem){
-                $('.float-wrap :nth-child(3) .float-text').removeClass('normal');
-            }
-           
-        })
+       })
     }
     
     fourItem(){
@@ -67,9 +66,9 @@ class Theme extends React.Component{
                         </a>
                     </div>
                 </div>
-                <div className="header-title">
+                <motion.div className="header-title" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}} >
                     {this.props.title}
-                </div>
+                </motion.div>
             </div>
         )
     }
@@ -78,14 +77,19 @@ class Theme extends React.Component{
         return (
             <div className="container padding-y padding-x">
                 <p className="intro-title">頭條新聞</p>
-                <div className="intro-wrap">
+                <div className="intro-wrap" >
                     <div className="intro-item">
                         <img width="100%" src={this.props.theme[4].image} alt='新聞圖片' />
                         <div className="intro-text">
                             <h2>{this.props.theme[4].title}</h2>
                             <p>{this.props.theme[4].description}</p>
                         </div>
-                        <a className="intro-href btn" href={this.props.theme[4].url} target="_blank" rel="noreferrer noopener">more</a>
+                        <motion.a className="intro-href btn" href={this.props.theme[4].url} target="_blank" rel="noreferrer noopener"
+                        variants={this.buttonHover}
+                        whileHover="hover"
+                        >
+                            more
+                        </motion.a>
                     </div>
                     <div className="intro-item">
                         <img  width="100%" src={this.props.theme[5].image} alt='新聞圖片' />
@@ -93,7 +97,12 @@ class Theme extends React.Component{
                             <h2>{this.props.theme[5].title}</h2>
                             <p>{this.props.theme[5].description}</p>
                         </div>
-                        <a className="intro-href btn" href={this.props.theme[5].url} target="_blank" rel="noreferrer noopener">more</a>
+                        <motion.a className="intro-href btn" href={this.props.theme[5].url} target="_blank" rel="noreferrer noopener"
+                        variants={this.buttonHover}
+                        whileHover="hover"
+                        >
+                            more
+                        </motion.a>
                     </div>
                     <div className="intro-item">
                         <img  width="100%" src={this.props.theme[6].image} alt='新聞圖片' />
@@ -101,7 +110,12 @@ class Theme extends React.Component{
                             <h2>{this.props.theme[6].title}</h2>
                             <p>{this.props.theme[6].description}</p>
                         </div>
-                        <a className="intro-href btn" href={this.props.theme[6].url} target="_blank" rel="noreferrer noopener">more</a>
+                        <motion.a className="intro-href btn" href={this.props.theme[6].url} target="_blank" rel="noreferrer noopener"
+                        variants={this.buttonHover}
+                        whileHover="hover"
+                        >
+                            more
+                        </motion.a>
                     </div>
                 </div>
             </div>
@@ -111,8 +125,10 @@ class Theme extends React.Component{
     floatItem(){
         return (
             <div className="container padding-y padding-x">
-                <p className="intro-title">不容錯過</p>
-                <div className="float-wrap">
+                <p className="intro-title">
+                    不容錯過
+                </p>
+                <div className="float-wrap"   ref={this.floatItems}>
 
                     <div className="float-item">
                         <div className="float-img">
