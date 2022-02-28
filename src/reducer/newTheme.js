@@ -1,4 +1,4 @@
-export default (state=[],action)=>{
+const newTheme= (state=[],action)=>{
     switch(action.type){
         case "SPORTS":
             return action.payload;
@@ -10,3 +10,4 @@ export default (state=[],action)=>{
             return state;
     }
 }
+export default newTheme;

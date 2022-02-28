@@ -14,7 +14,7 @@ const Module=(props)=>{
             document.querySelector('body').classList.remove('nos-scroll');
             document.querySelector('.menu').classList.remove('menu-open');
         }
-    },[])
+    },[props.open])
     return ReactDOM.createPortal(
         <div className="modal-bg" onClick={props.open}> 
             <div className="modal" onClick={(e)=>e.stopPropagation()}>

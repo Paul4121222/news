@@ -1,4 +1,4 @@
-import  React ,{useRef,useEffect}from 'react';
+import  React ,{useRef,useEffect,useState}from 'react';
 
 const Slider=(props)=>{
     const list=props.list;
@@ -9,13 +9,15 @@ const Slider=(props)=>{
     let currentTranslate=0;
     let currentPos=0;
     let startPos=0;
-    let totalWidth;
-    let count;
+    const [totalWidth,setWidth]=useState(0);
+    let [count,setCount]=useState(0);
+   
 
     useEffect(()=>{
-        totalWidth=window.innerWidth;
-        count=Math.floor((slider.current.clientWidth-totalWidth)/slide.current.clientWidth);
-    });
+        console.log('set');
+        setWidth(window.innerWidth);
+        setCount(Math.floor((slider.current.clientWidth-totalWidth)/slide.current.clientWidth));
+    },[totalWidth,count]);
     
     const touchStart=(e)=>{
         dragging=true;
