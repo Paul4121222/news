@@ -48,6 +48,7 @@ h2{
     justify-content: space-between;
     align-items: center;
     background-color: #F2B544;
+    height: 65px
 }
 .nav-title{
     font-size: 1.5rem;
