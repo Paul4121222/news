@@ -16,14 +16,14 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Router history={history}>
-          <CSSTransition
+          {/* <CSSTransition
             in={this.state.show}
             classNames="fade"
             timeout={1000}
             unmountOnExit
           >
             <div className="overlap"></div>
-          </CSSTransition>
+          </CSSTransition> */}
 
           {/* <Header /> */}
           <Switch>
