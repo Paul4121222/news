@@ -4,35 +4,75 @@ import { connect } from "react-redux";
 import Slider from "./Slider";
 import Footer from "./Footer";
 import FlipCard from "./FlipCard";
-import backgroundImage from "../assets/background.jpg";
-
+import coverImage from "../assets/cover.jpg";
+import { motion } from "framer-motion";
 class New extends React.Component {
+  state = {
+    coverScrollY: 0,
+  };
+
+  handleScroll = () => {
+    this.setState({ coverScrollY: window.scrollY });
+  };
+
   componentDidMount() {
     this.props.mainPage();
+    window.addEventListener("scroll", this.handleScroll);
   }
+
   render() {
     if (this.props.item.length === 0) {
       return <div>loading</div>;
     }
+    const title = "Breaking News, Global Perspective";
     return (
       <div>
         <div
           style={{
-            height: "500px",
+            height: "calc(100vh)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
           }}
         >
           <div
             style={{
-              position: "fixed",
-              top: 0,
+              position: "absolute",
               left: 0,
+              top: 0,
               width: "100%",
-              height: "100%",
-              backgroundImage: `url(${backgroundImage})`,
-              backgroundRepeat: "no-repeat",
+              height: "100vh",
+              zIndex: -1,
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${coverImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: `center ${this.state.coverScrollY * 0.5}px`,
             }}
-          ></div>
+          />
+          <div
+            style={{
+              color: "#ffd231",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              fontSize: "2.5rem",
+              whiteSpace: "pre",
+            }}
+          >
+            {title.split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                style={{ display: "inline-block" }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </div>
         </div>
+
         <FlipCard
           list={[
             this.props.item[9],
