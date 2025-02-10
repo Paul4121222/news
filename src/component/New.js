@@ -5,19 +5,25 @@ import Slider from "./Slider";
 import Footer from "./Footer";
 import FlipCard from "./FlipCard";
 import coverImage from "../assets/cover.jpg";
-import { motion, useAnimation, useScroll } from "framer-motion";
+import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const New = ({ item, mainPage }) => {
   const [coverScrollY, setCoverScrollY] = useState(0);
   const animation = useAnimation(); //建立動畫控制器
-
+  const { scrollYProgress } = useScroll();
   const { ref: inViewRef, inView } = useInView({ threshold: 0.3 });
 
   const title = "Breaking News, Global Perspective";
   const desc1 = "Stay informed with the latest news from around the world.";
   const desc2 =
     "Breaking stories, in-depth analysis, and expert insights - all in one place.";
+
+  const colorTransform = useTransform(
+    scrollYProgress,
+    [0.8, 0.9],
+    ["#333", "#fff"]
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,7 +40,7 @@ const New = ({ item, mainPage }) => {
     if (inView) {
       console.log(2);
       //動畫應由start觸發
-      animation.start("visible");
+      // animation.start("visible");
     }
   }, [inView, animation]);
 
@@ -93,20 +99,7 @@ const New = ({ item, mainPage }) => {
           style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1.3 }}
         >
           {desc1.split("").map((letter, index) => (
-            <motion.span
-              key={index}
-              initial={"initial"}
-              animate={animation}
-              variants={{
-                hidden: {
-                  color: "#333",
-                },
-                visible: {
-                  color: "#fff",
-                  transition: { duration: 0.5, delay: index * 0.5 },
-                },
-              }}
-            >
+            <motion.span key={index} style={{ color: colorTransform }}>
               {letter}
             </motion.span>
           ))}
