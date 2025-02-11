@@ -25,7 +25,7 @@ class App extends React.Component {
             <div className="overlap"></div>
           </CSSTransition> */}
 
-          {/* <Header /> */}
+          <Header />
           <Switch>
             <Route path="/" exact component={New} />
             <Route path="/sports" exact component={Sports} />

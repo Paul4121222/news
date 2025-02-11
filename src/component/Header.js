@@ -35,7 +35,6 @@ class Header extends React.Component {
         className="header-nav padding-all"
         style={{
           backgroundColor: "transparent",
-          position: "fixed",
           width: "100%",
         }}
       >

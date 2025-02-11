@@ -99,7 +99,7 @@ const New = ({ item, mainPage }) => {
       </div>
 
       <div
-        style={{ padding: "40px 80px", background: "#1d1d1e" }}
+        style={{ padding: "110px 80px", background: "#1d1d1e" }}
         ref={scrollRef}
       >
         <div
