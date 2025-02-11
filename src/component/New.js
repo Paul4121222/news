@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { mainPage } from "../action";
 import { connect } from "react-redux";
 import Slider from "./Slider";
@@ -10,8 +10,13 @@ import { useInView } from "react-intersection-observer";
 
 const New = ({ item, mainPage }) => {
   const [coverScrollY, setCoverScrollY] = useState(0);
+  const scrollRef = useRef();
+
   const animation = useAnimation(); //建立動畫控制器
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start end", "center center"],
+  });
   const { ref: inViewRef, inView } = useInView({ threshold: 0.3 });
 
   const title = "Breaking News, Global Perspective";
@@ -21,7 +26,7 @@ const New = ({ item, mainPage }) => {
 
   const colorTransform = useTransform(
     scrollYProgress,
-    [0.8, 0.9],
+    [0, 1],
     ["#333", "#fff"]
   );
 
@@ -93,12 +98,26 @@ const New = ({ item, mainPage }) => {
         </div>
       </div>
 
-      <div style={{ padding: "40px 80px", background: "#1d1d1e" }}>
+      <div
+        style={{ padding: "40px 80px", background: "#1d1d1e" }}
+        ref={scrollRef}
+      >
         <div
           ref={inViewRef}
-          style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1.3 }}
+          style={{
+            fontSize: "3rem",
+            fontWeight: 700,
+            lineHeight: 1.3,
+            textAlign: "center",
+          }}
         >
           {desc1.split("").map((letter, index) => (
+            <motion.span key={index} style={{ color: colorTransform }}>
+              {letter}
+            </motion.span>
+          ))}
+          <br />
+          {desc2.split("").map((letter, index) => (
             <motion.span key={index} style={{ color: colorTransform }}>
               {letter}
             </motion.span>
