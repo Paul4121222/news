@@ -1,17 +1,19 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 import history from "../history";
 import Header from "./Header";
 import New from "./New";
 import Sports from "./Sports";
 import Health from "./Health";
 import Search from "./Search";
-import { CSSTransition } from "react-transition-group";
+import { getMainPage } from "../action";
+
 class App extends React.Component {
-  state = { show: true };
   componentDidMount() {
-    this.setState({ show: false });
+    this.props.getMainPage();
   }
+
   render() {
     return (
       <React.Fragment>
@@ -38,4 +40,9 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(
+  () => {},
+  (dispatch) => ({
+    getMainPage: () => dispatch(getMainPage()),
+  })
+)(App);

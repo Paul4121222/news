@@ -470,45 +470,28 @@ h2{
     justify-content: space-around;
 }
 
-
-
-.slider-header{
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-}
 .slider-container{
-    display: inline-flex;
-    transition: transform .3s ease-out;
-    padding: 2rem;
+    padding: 20px 60px;
 }
-.slide-btn{
-    background-color: #730202;
-    color: #fff;
-    align-self: flex-end;
-    margin: 1rem;
-}
-.slide{
-    width: 400px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    user-select: none;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+.slider-item{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    margin: 0 10px;
 }
-.slide:not(:last-child){
-    margin-right: 2rem;
-}
-.slide img{
+.slider-item   img {
     width: 100%;
-    height: 60%;
+    height: 350px;
     object-fit: cover;
-    border-radius: 5px 5px 0 0;
 }
-.grabbing{
-    cursor: grabbing;
+
+
+.slick-prev:before, .slick-next:before{
+    color: #ffd231 ;
 }
+
 .slider-text{
     user-select: none;
     padding: 1rem;

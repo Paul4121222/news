@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { mainPage } from "../action";
 import { connect } from "react-redux";
 import Slider from "./Slider";
 import Footer from "./Footer";
@@ -8,7 +7,7 @@ import coverImage from "../assets/cover.jpg";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const New = ({ item, mainPage }) => {
+const New = ({ list }) => {
   const [coverScrollY, setCoverScrollY] = useState(0);
   const scrollRef = useRef();
 
@@ -27,7 +26,7 @@ const New = ({ item, mainPage }) => {
   const colorTransform = useTransform(
     scrollYProgress,
     [0, 1],
-    ["#333", "#fff"]
+    ["#111", "#fff"]
   );
 
   useEffect(() => {
@@ -35,7 +34,6 @@ const New = ({ item, mainPage }) => {
       setCoverScrollY(window.scrollY);
     };
     window.addEventListener("scroll", handleScroll);
-    mainPage();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -125,16 +123,15 @@ const New = ({ item, mainPage }) => {
         </div>
       </div>
 
-      {item.length ? (
-        <FlipCard list={[item[9], item[5], item[6], item[7], item[8]]} />
-      ) : null}
+      <h2>精選新聞</h2>
+      <Slider list={list.slice(5)} />
       <Footer />
     </div>
   );
 };
 const mapStateToProps = (state) => {
   return {
-    item: state.newTheme,
+    list: state.newTheme,
   };
 };
-export default connect(mapStateToProps, { mainPage })(New);
+export default connect(mapStateToProps)(New);

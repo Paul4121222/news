@@ -1,149 +1,69 @@
-import  React ,{useRef,useEffect,useState}from 'react';
+import RSlider from "react-slick";
+import React from "react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { motion } from "framer-motion";
 
-const Slider=(props)=>{
-    const list=props.list;
-    const slider =useRef();
-    const slide=useRef();
-    let dragging=false;
-    let preTranslate=0;
-    let currentTranslate=0;
-    let currentPos=0;
-    let startPos=0;
-    const [totalWidth,setWidth]=useState(0);
-    let [count,setCount]=useState(0);
-   
+const Card = ({ item }) => {
+  return (
+    <motion.div className="slider-item" whileHover={{ scale: 1.05 }}>
+      <img src={item.image} alt="" />
 
-    useEffect(()=>{
-        console.log('set');
-        setWidth(window.innerWidth);
-        setCount(Math.floor((slider.current.clientWidth-totalWidth)/slide.current.clientWidth));
-    },[totalWidth,count]);
-    
-    const touchStart=(e)=>{
-        dragging=true;
-        startPos=getCurrentPos(e);
-        slider.current.classList.add('grabbing');
-    }
+      <motion.div
+        initial="initial"
+        whileHover="hover"
+        variants={{
+          initial: { opacity: 0 },
+          hover: { opacity: 1 },
+        }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(0, 0, 0, 0.5)",
+          padding: "20px",
+        }}
+      >
+        <motion.h2
+          style={{ color: "#fff" }}
+          variants={{
+            initial: { y: "-100%", opacity: 0 },
+            hover: { y: 0, opacity: 1 },
+          }}
+        >
+          {item.title}
+        </motion.h2>
+      </motion.div>
+    </motion.div>
+  );
+};
 
-    const touchMove=(e)=>{
-        if(dragging){
-            const pos=getCurrentPos(e);
-            currentTranslate=pos+preTranslate-startPos;
-        } 
-    }
+const Slider = React.memo(
+  ({ list }) => {
+    const showCount = Math.floor((window.innerWidth - 60) / 250);
 
-    const touchEnd=()=>{
-        dragging=false;
-        slider.current.classList.remove('grabbing');
-        
-        //限制
-        if(count>=5)count=4;
-        //往右拖動量>100,往右一格
-        if(currentTranslate-preTranslate<-50 && currentPos<count){
-            currentPos++;
-        }
+    const settings = {
+      infinite: true,
+      speed: 500,
+      slidesToShow: showCount,
+      slidesToScroll: 1,
+    };
 
-        else if(currentTranslate-preTranslate>50&&currentPos>0){
-            currentPos--;
-        }
-        setting();
-    }
-
-    
-
-    const setSliderPosition=(p=0)=>{
-        slider.current.style.transform=`translateX(${currentTranslate+p}px)`;
-    }
-
-    const getCurrentPos=(e)=>{
-        return e.type.includes("mouse")?e.pageX :e.touches[0].clientX;
-    }
-    
-    const setting=()=>{
-            if(slider.current.clientWidth-totalWidth-(slide.current.clientWidth-32)*currentPos<slide.current.clientWidth){
-                currentTranslate=currentPos*(-slide.current.clientWidth-32);
-                preTranslate=currentTranslate;
-                
-                setSliderPosition(-(slider.current.clientWidth-totalWidth-(slide.current.clientWidth+32)*currentPos))
-            }
-
-            else {
-                currentTranslate=currentPos*(-slide.current.clientWidth-32);
-                preTranslate=currentTranslate;
-                setSliderPosition();
-            }
-    }
-
-    const clickBtn=(num)=>{
-        
-        return ()=>{
-            if(num>0){
-                if(currentPos<count)
-                    currentPos++;
-                setting();
-            }
-            else{
-                if(currentPos>0)
-                    currentPos--;
-                setting();
-            }
-        }
-    }
     return (
-            <div className='padding-y'>
-                <div className="slider-header container">
-                    <h2>精選消息</h2>
-                    <div className="slider-btn">
-                        <button onClick={clickBtn(-1)}>&#60;</button>
-                        <button onClick={clickBtn(1)}>&#62;</button>
-                    </div>
-                </div>
-                
-                <div className="slider-container" ref={slider} onMouseDown={touchStart} onMouseMove={touchMove} 
-                    onMouseLeave={touchEnd} onMouseUp={touchEnd}  onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
-                    <div className="slide" >
-                        <img src={list[0].image} alt='' onDragStart={e=>e.preventDefault()}/>
-                        <div className="slider-text">
-                            {list[0].title}
-                        </div>
-                        <a className="slide-btn btn" href={list[0].url} target="_blank" rel="noreferrer noopener">more</a>
-                    </div>
-                    <div className="slide" onMouseDown={touchStart} onMouseMove={touchMove} 
-                    onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
-                        <img src={list[1].image} alt='' onDragStart={e=>e.preventDefault()}/>
-                        <div className="slider-text">
-                            {list[1].title}
-                        </div>
-                        <a className="slide-btn btn" href={list[1].url} target="_blank" rel="noreferrer noopener">more</a>
-                    </div>
-                    <div className="slide" onMouseDown={touchStart} onMouseMove={touchMove} 
-                    onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
-                        <img src={list[2].image} alt='' onDragStart={e=>e.preventDefault()}/>
-                        <div className="slider-text">
-                            {list[2].title}
-                        </div>
-                        <a className="slide-btn btn" href={list[2].url} target="_blank" rel="noreferrer noopener">more</a>
-                    </div>
-                    <div className="slide" onMouseDown={touchStart} onMouseMove={touchMove} 
-                    onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
-                        <img src={list[3].image} alt='' onDragStart={e=>e.preventDefault()}/>
-                        <div className="slider-text">
-                            {list[3].title}
-                        </div>
-                        <a className="slide-btn btn" href={list[3].url} target="_blank" rel="noreferrer noopener">more</a>
-                    </div>
-                    <div className="slide" ref={slide} onMouseDown={touchStart} onMouseMove={touchMove} 
-                    onMouseLeave={touchEnd} onMouseUp={touchEnd} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
-                        <img src={list[4].image} alt='' onDragStart={e=>e.preventDefault()}/>
-                        <div className="slider-text">
-                            {list[4].title}
-                        </div>
-                        <a className="slide-btn btn" href={list[4].url} target="_blank" rel="noreferrer noopener">more</a>
-                    </div>
-                </div>
-            </div>
-    )
-}
-
+      <div className="slider-container">
+        <RSlider {...settings}>
+          {list.map((item, index) => {
+            return <Card item={item} key={index} />;
+          })}
+        </RSlider>
+      </div>
+    );
+  },
+  (preProps, nextProps) => {
+    return JSON.stringify(preProps) === JSON.stringify(nextProps);
+  }
+);
 
 export default Slider;
