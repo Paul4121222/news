@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { connect } from "react-redux";
 import Slider from "./Slider";
 import Footer from "./Footer";
-import FlipCard from "./FlipCard";
 import coverImage from "../assets/cover.jpg";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { getMainPage } from "../action";
 
-const New = ({ list }) => {
+const New = ({ list, getMainPage }) => {
   const [coverScrollY, setCoverScrollY] = useState(0);
   const scrollRef = useRef();
 
@@ -34,6 +34,8 @@ const New = ({ list }) => {
       setCoverScrollY(window.scrollY);
     };
     window.addEventListener("scroll", handleScroll);
+    getMainPage();
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -124,14 +126,21 @@ const New = ({ list }) => {
       </div>
 
       <h2>精選新聞</h2>
-      <Slider list={list.slice(5)} />
+      <Suspense fallback={<div>123</div>}>
+        <Slider list={list.slice(5)} />
+      </Suspense>
       <Footer />
     </div>
   );
 };
+
 const mapStateToProps = (state) => {
   return {
     list: state.newTheme,
   };
 };
-export default connect(mapStateToProps)(New);
+
+const mapDispatchToProps = (dispatch) => ({
+  getMainPage: () => dispatch(getMainPage()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(New);

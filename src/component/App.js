@@ -1,19 +1,13 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
 import history from "../history";
 import Header from "./Header";
 import New from "./New";
 import Sports from "./Sports";
 import Health from "./Health";
-import Search from "./Search";
-import { getMainPage } from "../action";
+import Theme from "./Theme";
 
 class App extends React.Component {
-  componentDidMount() {
-    this.props.getMainPage();
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -32,7 +26,7 @@ class App extends React.Component {
             <Route path="/" exact component={New} />
             <Route path="/sports" exact component={Sports} />
             <Route path="/health" exact component={Health} />
-            <Route path="/search" exact component={Search} />
+            <Route path="/search" exact component={Theme} />
           </Switch>
         </Router>
       </React.Fragment>
@@ -40,9 +34,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(
-  () => {},
-  (dispatch) => ({
-    getMainPage: () => dispatch(getMainPage()),
-  })
-)(App);
+export default App;

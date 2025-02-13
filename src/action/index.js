@@ -1,12 +1,14 @@
 import axios from "../axios";
 import history from "../history";
 
+let token = "9c0f06ecc81ccbb80f495f8bec001558";
+
 export const newsList = (id) => async (dispatch) => {
   const response = await axios.get("/search", {
     params: {
       q: id,
       country: "tw",
-      token: "b89f929d24f4fe3d0585a6bfb8cc1c74",
+      token,
     },
   });
   dispatch({ type: "SPORTS", payload: response.data.articles });
@@ -29,20 +31,27 @@ export const newsList = (id) => async (dispatch) => {
 export const searchKey = (keyWord) => async (dispatch) => {
   const response = await axios.get("/search", {
     params: {
-      token: "b89f929d24f4fe3d0585a6bfb8cc1c74",
+      token,
       country: "tw",
       q: keyWord,
     },
   });
   dispatch({ type: "SEARCH", payload: response.data.articles });
-  history.push("/search");
+  history.push({
+    pathname: "/search",
+    state: {
+      info: {
+        searchKey: keyWord,
+      },
+    },
+  });
 };
 
 export const getMainPage = () => async (dispatch) => {
   const response = await axios.get("/top-headlines", {
     params: {
       country: "tw",
-      token: "b89f929d24f4fe3d0585a6bfb8cc1c74",
+      token,
     },
   });
 

@@ -1,183 +1,142 @@
-import React from 'react';
-import {motion} from 'framer-motion';
-class Theme extends React.Component{
-    constructor(props){
-        super(props);
-        this.floatItems=React.createRef();
-        this.buttonHover={
-            hover:{
-                scale:1.1,
-                transition:{
-                    yoyo:Infinity,
-                    duration:0.3
-                }
-            }
-        }
-    }   
-    componentDidMount(){
-       window.addEventListener('scroll',()=>{
-           const items=this.floatItems.current;
-           if(items){
-                items.childNodes.forEach(item=>{
-                    if(item.getBoundingClientRect().top<window.innerHeight-150){
-                        item.querySelector('.float-text').classList.add('normal');
-                    }
-                    else{
-                        item.querySelector('.float-text').classList.remove('normal');
-                    }
-            })
-           }
-           
-       })
-    }
-    
-    fourItem(){
-        return (
-            <div className="theme-header ">
-                <div className="theme-header-item">
-                    <img src={this.props.theme[0].image} alt=''/>
-                    <div className="header-item-text">
-                        <a href={this.props.theme[0].url} target="_blank" rel="noreferrer noopener">
-                            {this.props.theme[0].title}
-                        </a>
-                    </div>
-                </div>
-                <div className="theme-header-item">
-                    <img src={this.props.theme[1].image} alt=''/>
-                    <div className="header-item-text">
-                        <a href={this.props.theme[1].url} target="_blank" rel="noreferrer noopener">
-                            {this.props.theme[1].title}
-                        </a>
-                    </div>
-                </div>
-                <div className="theme-header-item">
-                    <img src={this.props.theme[2].image} alt=''/>
-                    <div className="header-item-text">
-                        <a href={this.props.theme[2].url} target="_blank" rel="noreferrer noopener">
-                            {this.props.theme[2].title}
-                        </a>
-                    </div>
-                </div>
-                <div className="theme-header-item">
-                    <img src={this.props.theme[3].image} alt=''/>
-                    <div className="header-item-text">
-                        <a href={this.props.theme[3].url} target="_blank" rel="noreferrer noopener">
-                            {this.props.theme[3].title}
-                        </a>
-                    </div>
-                </div>
-                <motion.div className="header-title" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}} >
-                    {this.props.title}
-                </motion.div>
-            </div>
-        )
-    }
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
+import background from "../assets/background.jpg";
 
-    introduce(){
-        return (
-            <div className="container padding-y padding-x">
-                <p className="intro-title">頭條新聞</p>
-                <div className="intro-wrap" >
-                    <div className="intro-item">
-                        <img width="100%" src={this.props.theme[4].image} alt='新聞圖片' />
-                        <div className="intro-text">
-                            <h2>{this.props.theme[4].title}</h2>
-                            <p>{this.props.theme[4].description}</p>
-                        </div>
-                        <motion.a className="intro-href btn" href={this.props.theme[4].url} target="_blank" rel="noreferrer noopener"
-                        variants={this.buttonHover}
-                        whileHover="hover"
-                        >
-                            more
-                        </motion.a>
-                    </div>
-                    <div className="intro-item">
-                        <img  width="100%" src={this.props.theme[5].image} alt='新聞圖片' />
-                        <div className="intro-text">
-                            <h2>{this.props.theme[5].title}</h2>
-                            <p>{this.props.theme[5].description}</p>
-                        </div>
-                        <motion.a className="intro-href btn" href={this.props.theme[5].url} target="_blank" rel="noreferrer noopener"
-                        variants={this.buttonHover}
-                        whileHover="hover"
-                        >
-                            more
-                        </motion.a>
-                    </div>
-                    <div className="intro-item">
-                        <img  width="100%" src={this.props.theme[6].image} alt='新聞圖片' />
-                        <div className="intro-text">
-                            <h2>{this.props.theme[6].title}</h2>
-                            <p>{this.props.theme[6].description}</p>
-                        </div>
-                        <motion.a className="intro-href btn" href={this.props.theme[6].url} target="_blank" rel="noreferrer noopener"
-                        variants={this.buttonHover}
-                        whileHover="hover"
-                        >
-                            more
-                        </motion.a>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+//封裝promise，原因是普通的promise會立即返回promise，react不知道狀態，導致不知道怎麼處理
+//告訴suspense 如果資料還沒回來，丟出promise，資料若回來，正常顯示內容
+const wrapPromise = (promise) => {
+  let status = "pending";
+  let result;
 
-    floatItem(){
-        return (
-            <div className="container padding-y padding-x">
-                <p className="intro-title">
-                    不容錯過
-                </p>
-                <div className="float-wrap"   ref={this.floatItems}>
+  let suspender = promise
+    .then((r) => {
+      status = "success";
+      result = r;
+    })
+    .catch((e) => {
+      status = "error";
+      result = e;
+    });
 
-                    <div className="float-item">
-                        <div className="float-img">
-                            <img src={this.props.theme[7].image} alt='新聞圖片' />
-                        </div>
-                        <div className="float-text">
-                            <h2>{this.props.theme[7].title}</h2>
-                            <p>{this.props.theme[7].description}</p>
-                            <a className="btn float-btn" href={this.props.theme[7].url} target="_blank" rel="noreferrer noopener">more</a>
-                        </div>
-                    </div>
+  return {
+    read: () => {
+      if (status === "pending") {
+        throw suspender; // 🚀 讓 Suspense 停止渲染，直到 Promise 完成
+      } else if (status === "error") {
+        throw result; // 🚨 發生錯誤時拋出錯誤
+      }
+      return result; // ✅ 只有成功時才返回資料
+    },
+  };
+};
 
-                    <div className="float-item">
-                        <div className="float-text">
-                            <h2>{this.props.theme[8].title}</h2>
-                            <p>{this.props.theme[8].description}</p>
-                            <a className="btn float-btn" href={this.props.theme[8].url} target="_blank" rel="noreferrer noopener">more</a>
-                        </div>
-                        <div className="float-img">
-                            <img src={this.props.theme[8].image} alt='新聞圖片' />
-                        </div>
-                    </div>
+const Theme = () => {
+  const searchWord = useSelector((state) => state.searchWord);
+  const newTheme = useSelector((state) => state.newTheme);
 
-                    <div className="float-item">
-                        <div className="float-img">
-                            <img src={this.props.theme[9].image} alt='新聞圖片' />
-                        </div>
-                        <div className="float-text">
-                            <h2>{this.props.theme[9].title}</h2>
-                            <p>{this.props.theme[9].description}</p>
-                            <a className="btn float-btn" href={this.props.theme[9].url} target="_blank" rel="noreferrer noopener">more</a>
-                        </div>
-                    </div>
+  return (
+    <div>
+      <div
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${background})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          height: "350px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <motion.h2
+          initial={{ opacity: 0, scale: 2 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          style={{ fontSize: "45px", fontWeight: 700, color: "#ffd231" }}
+        >
+          搜尋詞: {searchWord}
+        </motion.h2>
+      </div>
 
-                    
-                </div>
-            </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, 250px)",
+          gap: "20px",
+          padding: "20px",
+          justifyContent: "center",
+        }}
+      >
+        {newTheme.map((theme, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <motion.div
+              variants={{
+                initial: {
+                  scale: 1,
+                },
+                hover: {
+                  scale: 1.02,
+                },
+              }}
+              initial="initial"
+              whileHover="hover"
+              style={{
+                backgroundImage: `url(${theme.image})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                height: "250px",
+                position: "relative",
+              }}
+            >
+              <motion.div
+                style={{
+                  color: "#fff",
+                  position: "absolute",
+                  inset: 0,
+                  background: "rgba(0, 0, 0, 0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  padding: "10px",
+                }}
+                variants={{
+                  initial: { opacity: 0 },
+                  hover: { opacity: 1, transition: { duration: 0.3 } },
+                }}
+              >
+                {theme.title}
+              </motion.div>
+            </motion.div>
 
-        )
-    }
-    render(){
-        return (
-            <div>
-                {this.fourItem()}
-                {this.introduce()}
-                {this.floatItem()}
-            </div>
-        )
-    }
-}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="theme-desc"
+              style={{
+                flex: 1,
+                fontWeight: 400,
+                fontSize: "14px",
+                lineHeight: 1.6,
+                color: "#333",
+                overflow: "hidden",
+                display: "-webkit-box",
+              }}
+            >
+              {theme.description}
+            </motion.div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default Theme;

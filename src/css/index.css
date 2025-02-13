@@ -642,7 +642,17 @@ h2{
 
 
 
-
+.theme-desc{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    overflow: hidden;
+    -webkit-line-clamp:4;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+}
 
 
 
