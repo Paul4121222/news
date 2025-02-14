@@ -52,26 +52,32 @@ h2{
     top:0;
     left: 0;
     z-index: 100;
+    white-space: nowrap;
 }
 .nav-title{
     font-size: 1.5rem;
     font-weight: 800;
     color:#fff;
 }
-.nav-title:hover{
-    color:#2d314d;
+
+.nav{
+    margin:0 10px;
 }
 .nav a{
     color:#fff;
     font-size: 1.1rem;
     font-weight: 400;
 }
-.nav a:hover{
-    color:#2d314d;
+.nav-title:hover, .nav a:hover{
+    color:#00AEEF;
 }
 .nav a:not(:last-child){
     margin-right: 2rem;
 }
+.nav .active{
+    border-bottom: 1px solid #00FFFF;
+}
+
 .theme-header{
     width:100%;
     display: grid;
@@ -758,7 +764,7 @@ h2{
     }
 }
 
-@media screen and (max-width:420px){
+@media screen and (max-width:600px){
     .nav-title{
         font-size: 1rem;
     }

@@ -3,10 +3,10 @@ import history from "../history";
 
 let token = "9c0f06ecc81ccbb80f495f8bec001558";
 
-export const newsList = (id) => async (dispatch) => {
+export const newsList = (keyWord) => async (dispatch) => {
   const response = await axios.get("/search", {
     params: {
-      q: id,
+      q: keyWord,
       country: "tw",
       token,
     },

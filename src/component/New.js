@@ -3,20 +3,17 @@ import { connect } from "react-redux";
 import Slider from "./Slider";
 import Footer from "./Footer";
 import coverImage from "../assets/cover.jpg";
-import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { getMainPage } from "../action";
 
 const New = ({ list, getMainPage }) => {
   const [coverScrollY, setCoverScrollY] = useState(0);
   const scrollRef = useRef();
 
-  const animation = useAnimation(); //建立動畫控制器
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ["start end", "center center"],
   });
-  const { ref: inViewRef, inView } = useInView({ threshold: 0.3 });
 
   const title = "Breaking News, Global Perspective";
   const desc1 = "Stay informed with the latest news from around the world.";
@@ -28,6 +25,7 @@ const New = ({ list, getMainPage }) => {
     [0, 1],
     ["#111", "#fff"]
   );
+  const showCount = Math.floor((window.innerWidth - 60) / 250);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,14 +38,6 @@ const New = ({ list, getMainPage }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    if (inView) {
-      console.log(2);
-      //動畫應由start觸發
-      // animation.start("visible");
-    }
-  }, [inView, animation]);
 
   return (
     <div>
@@ -103,7 +93,6 @@ const New = ({ list, getMainPage }) => {
         ref={scrollRef}
       >
         <div
-          ref={inViewRef}
           style={{
             fontSize: "3rem",
             fontWeight: 700,
@@ -126,9 +115,7 @@ const New = ({ list, getMainPage }) => {
       </div>
 
       <h2>精選新聞</h2>
-      <Suspense fallback={<div>123</div>}>
-        <Slider list={list.slice(5)} />
-      </Suspense>
+      <Slider list={list.slice(0, 5)} showCount={showCount} />
       <Footer />
     </div>
   );

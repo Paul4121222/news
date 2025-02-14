@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 import Module from "./Module";
 import ReduxForm from "./ReduxForm";
 import { motion } from "framer-motion";
@@ -20,21 +20,29 @@ class Header extends React.Component {
   clickNav = () => {
     this.setState({ open: false });
   };
+
   renderNav() {
     return (
       <React.Fragment>
-        <Link to="/">News</Link>
-        <Link to="/sports">Sports</Link>
-        <Link to="/health">Health</Link>
+        <NavLink to="/technology">Technology</NavLink>
+        <NavLink to="/sports">Sports</NavLink>
+        <NavLink to="/health">Health</NavLink>
       </React.Fragment>
     );
   }
+
   render() {
+    const { location } = this.props;
+
+    const shouldTransparent = ["/", "/search"].includes(location.pathname);
     return (
       <div
         className="header-nav padding-all"
         style={{
-          backgroundColor: "transparent",
+          backgroundColor: shouldTransparent
+            ? "transparent"
+            : "rgb(29, 29, 30)",
+          position: shouldTransparent ? "absolute" : "relative",
           width: "100%",
         }}
       >
@@ -78,4 +86,4 @@ class Header extends React.Component {
     );
   }
 }
-export default Header;
+export default withRouter(Header);

@@ -41,9 +41,7 @@ const Card = ({ item }) => {
 };
 
 const Slider = React.memo(
-  ({ list }) => {
-    const showCount = Math.floor((window.innerWidth - 60) / 250);
-
+  ({ list, showCount = 5 }) => {
     const settings = {
       infinite: true,
       speed: 500,

@@ -3,8 +3,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import history from "../history";
 import Header from "./Header";
 import New from "./New";
-import Sports from "./Sports";
-import Health from "./Health";
+import Category from "./Category";
 import Theme from "./Theme";
 
 class App extends React.Component {
@@ -24,8 +23,9 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route path="/" exact component={New} />
-            <Route path="/sports" exact component={Sports} />
-            <Route path="/health" exact component={Health} />
+            <Route path="/technology" exact component={Category} />
+            <Route path="/sports" exact component={Category} />
+            <Route path="/health" exact component={Category} />
             <Route path="/search" exact component={Theme} />
           </Switch>
         </Router>
