@@ -1,5 +1,5 @@
 # 新聞網站
-[Demo](https://stupefied-bartik-767ec6.netlify.app/)
+[Demo](https://paul4121222.github.io/news/)
 
 ## 特色
 * 觀看各種新聞
