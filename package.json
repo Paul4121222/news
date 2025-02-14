@@ -23,7 +23,7 @@
     "slick-carousel": "^1.8.1",
     "web-vitals": "^1.1.2"
   },
-  "homepage": "https://github.com/Paul4121222/news",
+  "homepage": "https://paul4121222.github.io/news",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

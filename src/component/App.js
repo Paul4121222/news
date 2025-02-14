@@ -11,7 +11,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Router history={history} basename="/news">
+        <Router history={history}>
           {/* <CSSTransition
             in={this.state.show}
             classNames="fade"
