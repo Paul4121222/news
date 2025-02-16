@@ -5,12 +5,16 @@ import { searchKey, word } from "../action";
 
 class ReduxForm extends React.Component {
   renderInput({ input, meta }) {
-    console.log(meta);
-    return <input {...input} autoComplete="off" placeholder="輸入關鍵字" />;
+    return (
+      <input
+        {...input}
+        autoComplete="off"
+        placeholder="Please input any keyword"
+      />
+    );
   }
 
   onSubmit = (formValue) => {
-    console.log(formValue.keyWord);
     this.props.searchKey(formValue.keyWord);
     this.props.word(formValue.keyWord);
   };

@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 import { NavLink, Link, withRouter } from "react-router-dom";
 import Module from "./Module";
 import ReduxForm from "./ReduxForm";
 import { motion } from "framer-motion";
+import { cleanNewsList } from "../action";
 
 class Header extends React.Component {
   constructor(props) {
@@ -21,12 +23,22 @@ class Header extends React.Component {
     this.setState({ open: false });
   };
 
+  changePath = () => {
+    this.props.cleanNewsList();
+  };
+
   renderNav() {
     return (
       <React.Fragment>
-        <NavLink to="/technology">Technology</NavLink>
-        <NavLink to="/sports">Sports</NavLink>
-        <NavLink to="/health">Health</NavLink>
+        <NavLink to="/technology" onClick={this.changePath}>
+          Technology
+        </NavLink>
+        <NavLink to="/sports" onClick={this.changePath}>
+          Sports
+        </NavLink>
+        <NavLink to="/health" onClick={this.changePath}>
+          Health
+        </NavLink>
       </React.Fragment>
     );
   }
@@ -34,7 +46,7 @@ class Header extends React.Component {
   render() {
     const { location } = this.props;
 
-    const shouldTransparent = ["/", "/search"].includes(location.pathname);
+    const shouldTransparent = ["/"].includes(location.pathname);
     return (
       <div
         className="header-nav padding-all"
@@ -46,7 +58,7 @@ class Header extends React.Component {
           width: "100%",
         }}
       >
-        <Link to="/" className="nav-title">
+        <Link to="/" className="nav-title" onClick={this.changePath}>
           <motion.p
             animate={{ y: 0 }}
             initial={{ y: -250 }}
@@ -57,7 +69,7 @@ class Header extends React.Component {
               stiffness: 120,
             }}
           >
-            新聞網站
+            NEWS
           </motion.p>
         </Link>
 
@@ -86,4 +98,11 @@ class Header extends React.Component {
     );
   }
 }
-export default withRouter(Header);
+export default withRouter(
+  connect(
+    () => ({}),
+    (dispatch) => ({
+      cleanNewsList: () => dispatch(cleanNewsList()),
+    })
+  )(Header)
+);

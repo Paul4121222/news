@@ -1,3 +1,5 @@
+//封裝promise，原因是普通的promise會立即返回promise，react不知道狀態，導致不知道怎麼處理
+//告訴suspense 如果資料還沒回來，丟出promise，資料若回來，正常顯示內容
 export const wrapPromise = (promise) => {
   let status = "pending";
   let result;

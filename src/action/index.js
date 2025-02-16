@@ -3,7 +3,13 @@ import history from "../history";
 
 let token = "9c0f06ecc81ccbb80f495f8bec001558";
 
-export const newsList = (keyWord) => async (dispatch) => {
+export const cleanNewsList = () => {
+  return {
+    type: "CLEAN",
+  };
+};
+
+export const getNewsList = (keyWord) => async (dispatch) => {
   const response = await axios.get("/search", {
     params: {
       q: keyWord,
@@ -11,7 +17,7 @@ export const newsList = (keyWord) => async (dispatch) => {
       token,
     },
   });
-  dispatch({ type: "SPORTS", payload: response.data.articles });
+  dispatch({ type: "CATEGORY", payload: response.data.articles });
 };
 
 //正確的id:b89f929d24f4fe3d0585a6bfb8cc1c74
@@ -29,6 +35,7 @@ export const newsList = (keyWord) => async (dispatch) => {
 }*/
 
 export const searchKey = (keyWord) => async (dispatch) => {
+  dispatch({ type: "CLEAN" });
   const response = await axios.get("/search", {
     params: {
       token,
@@ -36,6 +43,7 @@ export const searchKey = (keyWord) => async (dispatch) => {
       q: keyWord,
     },
   });
+
   dispatch({ type: "SEARCH", payload: response.data.articles });
   history.push({
     pathname: "/search",

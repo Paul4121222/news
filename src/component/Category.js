@@ -1,23 +1,19 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { newsList } from "../action";
+import { getNewsList } from "../action";
 import { motion } from "framer-motion";
+import { wrapPromise } from "../utility";
 
-const Category = ({ newsList, newTheme, match }) => {
-  console.log(match);
-  useEffect(() => {
-    const searchWord = match.path.split("/")[1];
-    newsList(searchWord);
-  }, [match]);
-
+const Content = ({ data }) => {
+  const response = data.read();
   return (
     <div style={{ padding: "20px" }}>
       <motion.div
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}
         style={{
-          background: `url(${newTheme[0].image}) center/cover no-repeat`,
+          background: `url(${response[0].image}) center/cover no-repeat`,
           height: "300px",
           display: "flex",
           alignItems: "flex-end",
@@ -29,10 +25,10 @@ const Category = ({ newsList, newTheme, match }) => {
           borderRadius: "10px",
         }}
       >
-        {newTheme[0].title}
+        {response[0].title}
       </motion.div>
 
-      {newTheme.slice(1).map((news, index) => (
+      {response.slice(1).map((news, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}
@@ -73,10 +69,42 @@ const Category = ({ newsList, newTheme, match }) => {
   );
 };
 
+const Category = ({ getNewsList, newTheme, match }) => {
+  const data = useMemo(() => {
+    const response = wrapPromise(
+      new Promise((resolve) => {
+        if (newTheme.length) {
+          setTimeout(() => {
+            resolve(newTheme);
+          }, 3000);
+        }
+      })
+    );
+
+    return response;
+  }, [newTheme]);
+
+  useEffect(() => {
+    const searchWord = match.path.split("/")[1];
+    getNewsList(searchWord);
+  }, [match]);
+
+  return <Content data={data} />;
+};
+
 const mapStateToProps = (state) => {
   return {
     newTheme: state.newTheme,
   };
 };
 
-export default connect(mapStateToProps, { newsList })(withRouter(Category));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getNewsList: (val) => dispatch(getNewsList(val)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Category));

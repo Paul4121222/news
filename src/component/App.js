@@ -1,26 +1,27 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "../history";
 import Header from "./Header";
 import New from "./New";
 import Category from "./Category";
 import Theme from "./Theme";
+import Spinner from "./Spinner";
 
-class App extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Router history={history}>
-          {/* <CSSTransition
-            in={this.state.show}
-            classNames="fade"
-            timeout={1000}
-            unmountOnExit
-          >
-            <div className="overlap"></div>
-          </CSSTransition> */}
+const App = () => {
+  return (
+    <React.Fragment>
+      <Router history={history}>
+        {/* <CSSTransition
+          in={this.state.show}
+          classNames="fade"
+          timeout={1000}
+          unmountOnExit
+        >
+          <div className="overlap"></div>
+        </CSSTransition> */}
 
-          <Header />
+        <Header />
+        <Suspense fallback={<Spinner />}>
           <Switch>
             <Route path="/" exact component={New} />
             <Route path="/technology" exact component={Category} />
@@ -28,10 +29,10 @@ class App extends React.Component {
             <Route path="/health" exact component={Category} />
             <Route path="/search" exact component={Theme} />
           </Switch>
-        </Router>
-      </React.Fragment>
-    );
-  }
-}
+        </Suspense>
+      </Router>
+    </React.Fragment>
+  );
+};
 
 export default App;

@@ -1,40 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import background from "../assets/background.jpg";
+import { wrapPromise } from "../utility";
 
-//封裝promise，原因是普通的promise會立即返回promise，react不知道狀態，導致不知道怎麼處理
-//告訴suspense 如果資料還沒回來，丟出promise，資料若回來，正常顯示內容
-const wrapPromise = (promise) => {
-  let status = "pending";
-  let result;
-
-  let suspender = promise
-    .then((r) => {
-      status = "success";
-      result = r;
-    })
-    .catch((e) => {
-      status = "error";
-      result = e;
-    });
-
-  return {
-    read: () => {
-      if (status === "pending") {
-        throw suspender; // 🚀 讓 Suspense 停止渲染，直到 Promise 完成
-      } else if (status === "error") {
-        throw result; // 🚨 發生錯誤時拋出錯誤
-      }
-      return result; // ✅ 只有成功時才返回資料
-    },
-  };
-};
-
-const Theme = () => {
-  const searchWord = useSelector((state) => state.searchWord);
-  const newTheme = useSelector((state) => state.newTheme);
-
+const Content = ({ data, searchWord }) => {
+  const response = data.read();
   return (
     <div>
       <div
@@ -54,7 +25,7 @@ const Theme = () => {
           transition={{ duration: 0.5 }}
           style={{ fontSize: "45px", fontWeight: 700, color: "#ffd231" }}
         >
-          搜尋詞: {searchWord}
+          Keywords: {searchWord}
         </motion.h2>
       </div>
 
@@ -67,7 +38,7 @@ const Theme = () => {
           justifyContent: "center",
         }}
       >
-        {newTheme.map((theme, index) => (
+        {response.map((theme, index) => (
           <div
             key={index}
             style={{
@@ -137,6 +108,24 @@ const Theme = () => {
       </div>
     </div>
   );
+};
+const Theme = () => {
+  const searchWord = useSelector((state) => state.searchWord);
+  const newTheme = useSelector((state) => state.newTheme);
+
+  const data = useMemo(() => {
+    return wrapPromise(
+      new Promise((resolve) => {
+        if (newTheme.length) {
+          setTimeout(() => {
+            resolve(newTheme);
+          }, 3000);
+        }
+      })
+    );
+  }, [newTheme]);
+
+  return <Content data={data} searchWord={searchWord} />;
 };
 
 export default Theme;
