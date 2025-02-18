@@ -6,6 +6,7 @@ import New from "./New";
 import Category from "./Category";
 import Theme from "./Theme";
 import Spinner from "./Spinner";
+import Footer from "./Footer";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/health" exact component={Category} />
             <Route path="/search" exact component={Theme} />
           </Switch>
+          <Footer />
         </Suspense>
       </Router>
     </React.Fragment>

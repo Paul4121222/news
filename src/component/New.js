@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, Suspense } from "react";
 import { connect } from "react-redux";
 import Slider from "./Slider";
-import Footer from "./Footer";
 import coverImage from "../assets/cover.jpg";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { getMainPage } from "../action";
@@ -116,7 +115,6 @@ const New = ({ list, getMainPage }) => {
 
       <h2>精選新聞</h2>
       <Slider list={list.slice(0, 5)} showCount={showCount} />
-      <Footer />
     </div>
   );
 };
