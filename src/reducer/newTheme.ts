@@ -1,4 +1,8 @@
-const newTheme = (state = [], action) => {
+import {IGetNewsList, ISearchKey, ICleanNewsList, IGetMainPage} from '../action/interface';
+
+type IAction = IGetNewsList | ISearchKey | ICleanNewsList | IGetMainPage;
+
+const newTheme = (state = [], action: IAction) => {
   switch (action.type) {
     case "CATEGORY":
       return action.payload;
@@ -12,4 +16,5 @@ const newTheme = (state = [], action) => {
       return state;
   }
 };
+
 export default newTheme;

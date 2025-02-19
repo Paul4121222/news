@@ -1,10 +1,24 @@
 import RSlider from "react-slick";
-import React from "react";
+import React, {FC} from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
 
-const Card = ({ item }) => {
+interface IItem {
+  image: string,
+  title: string
+}
+
+interface ICardProps{
+  item: IItem
+}
+
+interface ISliderProps {
+  showCount?: number,
+  list: IItem[]
+}
+
+const Card: FC<ICardProps> = ({ item }) => {
   return (
     <motion.div className="slider-item" whileHover={{ scale: 1.05 }}>
       <img src={item.image} alt="" />
@@ -40,7 +54,7 @@ const Card = ({ item }) => {
   );
 };
 
-const Slider = React.memo(
+const Slider: FC<ISliderProps> = React.memo(
   ({ list, showCount = 5 }) => {
     const settings = {
       infinite: true,

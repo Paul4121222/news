@@ -4,7 +4,7 @@ import history from "../history";
 import { Dispatch } from "redux";
 import {ICleanNewsList, IGetNewsList, ISearchKey, IGetMainPage, IWord} from './interface';
 
-let token:string = "9c0f06ecc81ccbb80f495f8bec001558";
+let token: string = "9c0f06ecc81ccbb80f495f8bec001558";
 
 export const cleanNewsList = (): ICleanNewsList => {
   return {
@@ -12,7 +12,7 @@ export const cleanNewsList = (): ICleanNewsList => {
   };
 };
 
-export const getNewsList = (keyWord:string) => async (dispatch: Dispatch<IGetNewsList>) => {
+export const getNewsList = (keyWord: string) => async (dispatch: Dispatch<IGetNewsList>) => {
   try {
     const response = await axios.get("/search", {
       params: {

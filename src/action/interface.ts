@@ -7,15 +7,18 @@ export interface ICleanNewsList extends Action {
 }
 
 export interface IGetNewsList extends Action {
-    type: "CATEGORY"
+    type: "CATEGORY",
+    payload: Record<string, any>[]
 }
 
 export interface ISearchKey extends Action {
-    type: 'SEARCH'
+    type: 'SEARCH',
+    payload: Record<string, any>[]
 }
 
 export interface IGetMainPage extends Action {
-    type: "MAIN"
+    type: "MAIN",
+    payload: Record<string, any>[]
 }
 
 export interface IWord extends Action {

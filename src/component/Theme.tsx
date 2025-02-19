@@ -1,10 +1,23 @@
-import React, { useMemo } from "react";
+import React, { useMemo ,FC} from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import background from "../assets/background.jpg";
 import { wrapPromise } from "../utility";
 
-const Content = ({ data, searchWord }) => {
+interface ITheme {
+  [propName: string]: any
+}
+
+interface IPromiseData {
+  read: () => ITheme
+}
+
+interface IContent {
+  searchWord: string,
+  data: IPromiseData
+}
+
+const Content: FC<IContent> = ({ data, searchWord }) => {
   const response = data.read();
   return (
     <div>
@@ -38,7 +51,7 @@ const Content = ({ data, searchWord }) => {
           justifyContent: "center",
         }}
       >
-        {response.map((theme, index) => (
+        {response.map((theme: ITheme, index: number) => (
           <div
             key={index}
             style={{
@@ -109,11 +122,12 @@ const Content = ({ data, searchWord }) => {
     </div>
   );
 };
+
 const Theme = () => {
   const searchWord = useSelector((state) => state.searchWord);
   const newTheme = useSelector((state) => state.newTheme);
 
-  const data = useMemo(() => {
+  const data = useMemo(():IPromiseData => {
     return wrapPromise(
       new Promise((resolve) => {
         if (newTheme.length) {
