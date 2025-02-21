@@ -1,13 +1,25 @@
-import React from "react";
+import React , {RefObject}from "react";
 import { connect } from "react-redux";
-import { NavLink, Link, withRouter } from "react-router-dom";
+import { NavLink, Link, withRouter, RouteComponentProps } from "react-router-dom";
 import Module from "./Module";
 import ReduxForm from "./ReduxForm";
 import { motion } from "framer-motion";
 import { cleanNewsList } from "../action";
+import {ICleanNewsList} from '../action/interface';
+import { Dispatch } from "redux";
 
-class Header extends React.Component {
-  constructor(props) {
+interface IHeaderProps extends RouteComponentProps{
+  cleanNewsList: () => void
+}
+
+interface IHeaderState {
+  open: boolean
+}
+
+class Header extends React.Component<IHeaderProps, IHeaderState> {
+  private menu: RefObject<HTMLDivElement>
+
+  constructor(props: IHeaderProps) {
     super(props);
     this.state = { open: false };
     this.menu = React.createRef();
@@ -83,15 +95,19 @@ class Header extends React.Component {
           ref={this.menu}
           className="menu"
           onClick={() => {
-            this.menu.current.classList.contains("menu-open")
+            if(this.menu.current){
+              this.menu.current.classList.contains("menu-open")
               ? this.menu.current.classList.remove("menu-open")
               : this.menu.current.classList.add("menu-open");
-            this.setState({ open: !this.state.open });
+              this.setState({ open: !this.state.open });
+            }
           }}
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          {Array(3)
+            .fill(1)
+            .map((item) => (
+              <span key={item * Math.random()} />
+            ))}
         </div>
         {this.showModule()}
       </div>
@@ -101,7 +117,7 @@ class Header extends React.Component {
 export default withRouter(
   connect(
     () => ({}),
-    (dispatch) => ({
+    (dispatch: Dispatch<ICleanNewsList>) => ({
       cleanNewsList: () => dispatch(cleanNewsList()),
     })
   )(Header)

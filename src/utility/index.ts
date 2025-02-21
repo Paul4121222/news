@@ -19,7 +19,7 @@ export const wrapPromise = <T>(promise:Promise<T>) => {
     });
 
   return {
-    read: ():T => {
+    read: (): T => {
       if (status === "pending") {
         throw suspender; // 🚀 讓 Suspense 停止渲染，直到 Promise 完成
       } else if (status === "error") {

@@ -1,11 +1,11 @@
 import React from "react";
 import { Field, reduxForm, InjectedFormProps} from "redux-form";
 import { connect } from "react-redux";
-import { searchKey, word } from "../action";
+import { searchKey, getSearchWord} from "../action";
 
 interface IReduxFormProps {
   searchKey: (keyWord: string) => void,
-  word: (keyWord: string) => void,
+  getSearchWord: (keyWord: string) => void,
 }
 
 //定義表單欄位型別
@@ -34,7 +34,7 @@ class ReduxForm extends React.Component<Props> {
 
   onSubmit = (formValue: FormData) => {
     this.props.searchKey(formValue.keyWord);
-    this.props.word(formValue.keyWord);
+    this.props.getSearchWord(formValue.keyWord);
   };
 
   render() {
@@ -67,4 +67,4 @@ const formInput = reduxForm<FormData, IReduxFormProps>({
   validate: valid,
 })(ReduxForm);
 
-export default connect(null, { searchKey, word })(formInput);
+export default connect(null, { searchKey, getSearchWord})(formInput);

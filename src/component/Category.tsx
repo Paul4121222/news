@@ -1,11 +1,22 @@
-import React, { Suspense, useEffect, useMemo } from "react";
-import { withRouter } from "react-router-dom";
+import React, { FC, useEffect, useMemo } from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import { getNewsList } from "../action";
 import { motion } from "framer-motion";
 import { wrapPromise } from "../utility";
+import { TRootState } from "../reducer";
+import {ThunkDispatch} from 'redux-thunk';
+import {IGetNewsList} from '../action/interface';
 
-const Content = ({ data }) => {
+interface IContentProps {
+  data: IPromiseData
+} 
+interface ICategoryProps extends RouteComponentProps {
+  newTheme: ITheme,
+  getNewsList(val: string): void,
+}
+
+const Content:FC<IContentProps> = ({ data }) => {
   const response = data.read();
   return (
     <div style={{ padding: "20px" }}>
@@ -28,7 +39,7 @@ const Content = ({ data }) => {
         {response[0].title}
       </motion.div>
 
-      {response.slice(1).map((news, index) => (
+      {response.slice(1).map((news: ITheme, index: number) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}
@@ -69,9 +80,9 @@ const Content = ({ data }) => {
   );
 };
 
-const Category = ({ getNewsList, newTheme, match }) => {
+const Category: FC<ICategoryProps> = ({ getNewsList, newTheme, match }) => {
   const data = useMemo(() => {
-    const response = wrapPromise(
+    const response: IPromiseData = wrapPromise(
       new Promise((resolve) => {
         if (newTheme.length) {
           setTimeout(() => {
@@ -87,20 +98,20 @@ const Category = ({ getNewsList, newTheme, match }) => {
   useEffect(() => {
     const searchWord = match.path.split("/")[1];
     getNewsList(searchWord);
-  }, [match]);
+  }, [match.path]);
 
   return <Content data={data} />;
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: TRootState) => {
   return {
     newTheme: state.newTheme,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<TRootState, string, IGetNewsList>) => {
   return {
-    getNewsList: (val) => dispatch(getNewsList(val)),
+    getNewsList: (val: string) => dispatch(getNewsList(val)),
   };
 };
 

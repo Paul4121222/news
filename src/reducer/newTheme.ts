@@ -2,7 +2,7 @@ import {IGetNewsList, ISearchKey, ICleanNewsList, IGetMainPage} from '../action/
 
 type IAction = IGetNewsList | ISearchKey | ICleanNewsList | IGetMainPage;
 
-const newTheme = (state = [], action: IAction) => {
+const newTheme = (state: Array<Record<string, any>> = [], action: IAction) => {
   switch (action.type) {
     case "CATEGORY":
       return action.payload;

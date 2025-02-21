@@ -1,13 +1,21 @@
-import React, { useEffect, useState, useRef, Suspense } from "react";
+import React, { useEffect, useState, useRef, FC, RefObject } from "react";
 import { connect } from "react-redux";
 import Slider from "./Slider";
 import coverImage from "../assets/cover.jpg";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { getMainPage } from "../action";
+import { TRootState } from '../reducer';
+import { ThunkDispatch } from "redux-thunk";
+import {IGetMainPage} from '../action/interface';
 
-const New = ({ list, getMainPage }) => {
+interface INewProps  {
+  getMainPage: () => void,
+  list: ITheme
+}
+
+const New:FC<INewProps> = ({ list, getMainPage }) => {
   const [coverScrollY, setCoverScrollY] = useState(0);
-  const scrollRef = useRef();
+  const scrollRef: RefObject<HTMLDivElement> = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -119,13 +127,13 @@ const New = ({ list, getMainPage }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: TRootState) => {
   return {
     list: state.newTheme,
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<TRootState, null, IGetMainPage>) => ({
   getMainPage: () => dispatch(getMainPage()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(New);

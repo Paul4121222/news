@@ -3,14 +3,7 @@ import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import background from "../assets/background.jpg";
 import { wrapPromise } from "../utility";
-
-interface ITheme {
-  [propName: string]: any
-}
-
-interface IPromiseData {
-  read: () => ITheme
-}
+import { TRootState } from "../reducer";
 
 interface IContent {
   searchWord: string,
@@ -124,8 +117,8 @@ const Content: FC<IContent> = ({ data, searchWord }) => {
 };
 
 const Theme = () => {
-  const searchWord = useSelector((state) => state.searchWord);
-  const newTheme = useSelector((state) => state.newTheme);
+  const searchWord = useSelector((state: TRootState) => state.searchWord);
+  const newTheme = useSelector((state: TRootState) => state.newTheme);
 
   const data = useMemo(():IPromiseData => {
     return wrapPromise(

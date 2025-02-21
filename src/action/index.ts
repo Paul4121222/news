@@ -25,7 +25,6 @@ export const getNewsList = (keyWord: string) => async (dispatch: Dispatch<IGetNe
   } catch(e) {
     console.log(e)
   }
-
 };
 
 //正確的id:b89f929d24f4fe3d0585a6bfb8cc1c74
@@ -78,6 +77,6 @@ export const getMainPage = () => async (dispatch: Dispatch<IGetMainPage>) => {
   dispatch({ type: "MAIN", payload: response.data.articles });
 };
 
-export const word = (word: string): IWord => {
+export const getSearchWord = (word: string): IWord => {
   return { type: "SEARCH_WORD", payload: word };
 };
