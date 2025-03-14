@@ -4,7 +4,7 @@
 
 type StatusType = "pending" | "success" |  "error"
 
-export const wrapPromise = <T>(promise:Promise<T>) => {
+export const wrapPromise =<T> (promise:Promise<T>) => {
   let status: StatusType  = "pending";
   let result: T | Error;
 
@@ -21,11 +21,11 @@ export const wrapPromise = <T>(promise:Promise<T>) => {
   return {
     read: (): T => {
       if (status === "pending") {
-        throw suspender; // 🚀 讓 Suspense 停止渲染，直到 Promise 完成
+        throw suspender; //讓 Suspense 停止渲染，直到 Promise 完成
       } else if (status === "error") {
-        throw result; // 🚨 發生錯誤時拋出錯誤
+        throw result; //發生錯誤時拋出錯誤
       }
-      return result as T; // ✅ 只有成功時才返回資料
+      return result as T; //只有成功時才返回資料
     },
   };
 };
